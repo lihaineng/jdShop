@@ -40,7 +40,6 @@
           username: data.username,
           password: data.password
         })
-        console.log(result);
         if (result?.errno === 0) {
           localStorage.isLogin = true
           router.push({ name: 'Home' })
