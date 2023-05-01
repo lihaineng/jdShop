@@ -30,24 +30,5 @@ export default {
     right: 0;
     padding: 0 .18rem;
   }
-  .position {
-    position: relative;
-    padding: .16rem .24rem .16rem 0;
-    line-height: .22rem;
-    font-size: .16rem;
-    @include ellipsis;
-    .position__icon {
-      position: relative;
-      top: .01rem;
-      font-size: .2rem;
-    }
-    .position_notice {
-      position: absolute;
-      right: 0;
-      top: .17rem;
-      font-size: .2rem;
-    }
-    color: $content-fontcolor;
-  }
 </style>
   
