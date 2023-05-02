@@ -9,7 +9,10 @@
         <span class="search_text">山姆会员商店优惠商品</span>
     </div>
     <div class="banner">
-        <img class="banner__img" src="http://www.dell-lee.com/imgs/vue3/banner.jpg">
+        <img 
+        class="banner__img" 
+        src="http://www.dell-lee.com/imgs/vue3/banner.jpg" 
+        />
     </div>
     <div class="icons">
     <div

@@ -5,7 +5,6 @@
             <input
             class="wrapper__input__content"
             placeholder="请输入用户名"
-            autocomplete="new-password"
             v-model="username"
             />
         </div>
@@ -94,51 +93,50 @@ export default {
 <style lang="scss" scoped>
 @import '../../style/viriables.scss';
 .wrapper {
-    position: absolute;
-    top: 50%; 
-    left: 0; 
-    right: 0; 
-    transform: translateY(-50%); 
-    &__img {
-        display: block;
-        margin: 0 	auto .4rem auto; 	/* Centered */
-        width: .66rem;
-        height: .66rem;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  &__img {
+    display: block;
+    margin: 0 auto .4rem auto;
+    width: .66rem;
+    height: .66rem;
+  }
+  &__input {
+    height: .48rem;
+    margin: 0 .4rem .16rem .4rem;
+    padding: 0 .16rem;
+    background: #F9F9F9;
+    border: 1px solid rgba(0,0,0,0.10);
+    border-radius: 6px;
+    border-radius: 6px;
+    &__content {
+      line-height: .48rem;
+      border: none;
+      outline: none;
+      width: 100%;
+      background: none;
+      font-size: .16rem;
+      color: $content-notice-fontcolor;
+      &::placeholder {
+        color: $content-notice-fontcolor;
+      }
     }
-    &__input {
-        margin: 0 auto .16rem auto; 	/* Centered */;
-        padding: 0 .16rem;
-        width: 2.95rem;
-        height: .48rem;
-        background: #F9F9F9;
-        border: 1px solid rgba(0,0,0,0.10);
-        border-radius: 6px;
-        border-radius: 6px;
-        &__content{
-            line-height: .48rem;
-            border: none;
-            outline: none;
-            width: 100%;
-            background: none;
-            font-size: .16rem;
-            color: $content-notice-fontcolor;
-            &::placeholder {
-                color: $content-notice-fontcolor;
-            }
-        }
-    }
-    &__register-button {
-        margin: 0.48rem .4rem .16rem .4rem; 	/* Centered */;
-        line-height: .48rem;
-        background: #0091FF;
-        box-shadow: 0 4px 8px 0 rgba(0,145,255,0.32);
-        border-radius: 4px;
-        border-radius: 4px; 
-        font-size: 16px;
-        color: #FFFFFF;
-        text-align: center;
-    }
-    &__register-link {
+  }
+  &__register-button {
+    margin: .32rem .4rem .16rem .4rem;
+    line-height: .48rem;
+    background: $btn-bgColor;
+    box-shadow: 0 .04rem .08rem 0 rgba(0,145,255,0.32);
+    border-radius: .04rem;
+    border-radius: .04rem;
+    color: $bgColor;
+    font-size: .16rem;
+    text-align: center;
+  }
+  &__register-link {
     text-align: center;
     font-size: .14rem;
     color: $content-notice-fontcolor;
