@@ -54,7 +54,7 @@ export default Vuex.createStore({
     },
     cleanCartProducts(state, payload) {
       const { shopId } = payload
-      state.cartList[shopId].productList = {}
+      state.cartList = {}
       setLocalCartList(state)
     },
     setCartItemsChecked(state, payload) {

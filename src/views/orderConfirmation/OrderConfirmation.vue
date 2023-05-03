@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
       <TopArea />
-      <ProductList />
+      <ProductList/>
       <Order />
     </div>
   </template>

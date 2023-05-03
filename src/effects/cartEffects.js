@@ -21,8 +21,9 @@ export const useCommonCartEffect = (shopId) => {
 
   const calculations = computed(() => {
     const productList = cartList[shopId]?.productList
-    const result = { total: 0, price: 0, allChecked: true}
+    const result = { total: 0, price: 0, allChecked: true, isShow: false}
     if(productList) {
+      result.isShow = true
        for(let i in productList) {
          const product = productList[i]
          result.total += product.count

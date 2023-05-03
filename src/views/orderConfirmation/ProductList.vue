@@ -1,5 +1,5 @@
 <template>
-  <div class="products">
+  <div class="products" v-if="calculations.isShow"> 
     <div class="products__title">
       {{shopName}}
     </div>
@@ -38,8 +38,8 @@
     setup() {
       const route = useRoute()
       const shopId = route.params.id
-      const { shopName, productList } = useCommonCartEffect(shopId)
-      return { shopName, productList }
+      const { shopName, productList, calculations } = useCommonCartEffect(shopId)
+      return { shopName, productList, calculations}
     }
   }
   </script>

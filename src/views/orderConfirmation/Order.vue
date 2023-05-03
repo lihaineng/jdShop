@@ -1,9 +1,9 @@
 <template>
     <div class="order">
       <div class="order__price">实付金额 <b>¥{{calculations.price}}</b></div>
-      <div class="order__btn">提交订单</div>
+      <div class="order__btn" @click="clickShowConfirm">提交订单</div>
     </div>
-    <div class="mask">
+    <div class="mask" v-if=show>
       <div class="mask__content">
         <h3 class="mask__content__title">确认要离开收银台？</h3>
         <p class="mask__content__desc">请尽快完成支付，否则将被取消</p>
@@ -26,6 +26,18 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { post } from '../../utils/request'
 import { useCommonCartEffect } from '../../effects/cartEffects'
+import { ref } from 'vue'
+
+const useShowConfirmEffect = () => {
+  const show = ref(false);
+  const clickShowConfirm = () => {
+    show.value = true
+  }
+  const handleCancelOrder = () =>{
+    show.value = false
+  }
+  return {show, clickShowConfirm, handleCancelOrder} 
+}
 
 export default {
   name: 'Order',
@@ -52,7 +64,8 @@ export default {
           products
         })
         if (result?.errno === 0) {
-          store.commit('clearCartData', shopId)
+          store.commit('cleanCartProducts', {shopId})
+          // router.go(0)
           router.push({ name: 'Home' })
         } 
       } catch (e) {
@@ -60,7 +73,9 @@ export default {
       }
     }
 
-    return { calculations, handleConfirmOrder }
+    const {show, clickShowConfirm, handleCancelOrder} = useShowConfirmEffect()
+
+    return { calculations, handleConfirmOrder, show, clickShowConfirm, handleCancelOrder }
   }
 }
 </script>

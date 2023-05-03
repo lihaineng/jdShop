@@ -5,5 +5,6 @@ import store from './store'
 import 'normalize.css'
 import './style/index.scss'
 import './style/iconfont.css'
+import './style/myiconfont.css'
 
 createApp(App).use(store).use(router).mount('#app')
