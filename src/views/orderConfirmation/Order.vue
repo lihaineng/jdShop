@@ -4,7 +4,7 @@
       <div class="order__btn" @click="clickShowConfirm">提交订单</div>
     </div>
     <div class="mask" v-if=show>
-      <div class="mask__content">
+      <div class="mask__content" v-if=showMoney>
         <h3 class="mask__content__title">确认要离开收银台？</h3>
         <p class="mask__content__desc">请尽快完成支付，否则将被取消</p>
         <div class="mask__content__btns">
@@ -18,6 +18,15 @@
           >确认支付</div>
         </div>
       </div>
+      <div  class="mask__content" v-if=showSucess>
+        <div class="mask__content__cancel" @click="payFinish">
+          <span class="mask__content__cancel__icon iconfont">&#xe667;</span>
+        </div>
+        <div class="mask__content__tag iconfont">
+          <span class="mask__content__tag__icon iconfont">&#xe614;</span>
+        </div>
+        <p class="mask__content__notice">支付成功，等待配送</p>
+      </div>
     </div>
   </template>
   
@@ -29,24 +38,38 @@ import { useCommonCartEffect } from '../../effects/cartEffects'
 import { ref } from 'vue'
 
 const useShowConfirmEffect = () => {
+  const router = useRouter()
   const show = ref(false);
+  const showMoney = ref(false)
+  const showSucess = ref(false)
+
   const clickShowConfirm = () => {
     show.value = true
+    showMoney.value = true
   }
   const handleCancelOrder = () =>{
     show.value = false
+    showMoney.value = false
   }
-  return {show, clickShowConfirm, handleCancelOrder} 
+  const payFinish = () => {
+    show.value = false
+    showMoney.value = false
+    showSucess.value = false
+    router.push({ name: 'Home' })
+  }
+
+  return {show, showMoney, showSucess, payFinish, clickShowConfirm, handleCancelOrder} 
 }
 
 export default {
   name: 'Order',
   setup() {
-    const router = useRouter()
     const route = useRoute()
     const store = useStore()
 
     const shopId = parseInt(route.params.id, 10)
+    const {show, showMoney,showSucess, payFinish, clickShowConfirm, handleCancelOrder} = useShowConfirmEffect()
+
     const { calculations, shopName, productList } = useCommonCartEffect(shopId)
 
     const handleConfirmOrder = async (isCanceled) => {
@@ -65,17 +88,19 @@ export default {
         })
         if (result?.errno === 0) {
           store.commit('cleanCartProducts', {shopId})
+          showSucess.value = true
           // router.go(0)
-          router.push({ name: 'Home' })
+          setTimeout(() => {
+            // 要调用的方法
+            payFinish()
+          }, 1000);
         } 
       } catch (e) {
         // 提示下单失败
       }
     }
 
-    const {show, clickShowConfirm, handleCancelOrder} = useShowConfirmEffect()
-
-    return { calculations, handleConfirmOrder, show, clickShowConfirm, handleCancelOrder }
+    return { calculations, handleConfirmOrder, show,payFinish, showMoney, showSucess, clickShowConfirm, handleCancelOrder }
   }
 }
 </script>
@@ -154,6 +179,28 @@ export default {
         background: #4FB0F9;
         color: #fff;
       }
+    }
+    &__cancel {
+      margin: 0 0 0 2.55rem;
+      &__icon{
+        display: inline-block;
+        font-size: .28rem;
+      }
+    }
+    &__tag {
+      margin: auto;
+      &__icon{
+        display: inline-block;
+        font-size: .44rem;
+        height: .32rem;
+        text-align: center;
+      }
+    }
+    &__notice{
+      line-height: .3rem;
+      font-family: PingFangSC-Medium;
+      font-size: 18px;
+      color: #333333;
     }
   }
 }
